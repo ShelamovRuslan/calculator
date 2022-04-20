@@ -1,7 +1,7 @@
 public class CalculatorTestDrive {
     public static void main(String[] args) {
-        System.out.println(CalculatorDebugger.calculatorDebugger("()(1)(((-7)))"));
-
+        String str = "(1(((1())13545,34))3)1(((-7)))";
+        System.out.println(CalculatorDebugger.calculatorDebugger(str));
 
     }
 }
