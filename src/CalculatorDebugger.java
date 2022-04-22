@@ -55,10 +55,12 @@ public class CalculatorDebugger {
                     }
                 }
             }
-            if (isDigit(charExpression[i]) && charExpression[i-1] == ')') {
-                expression += '*';
-                expression += charExpression[i];
-                continue anchor;
+            if (i > 0) {
+                if (isDigit(charExpression[i]) && charExpression[i - 1] == ')') {
+                    expression += '*';
+                    expression += charExpression[i];
+                    continue anchor;
+                }
             }
             expression += charExpression[i];
         }
@@ -90,11 +92,19 @@ public class CalculatorDebugger {
                     comma = false;
                     break;
                 case '-':
+                    if (i == 0){
+                        clearExpression += charExpression[i];
+                        break;
+                    }
                     if (charExpression[i - 1] == '(' && charExpression[i + 1] == '(') {
                         CalculatorError.calculatorError();
                     }
 
                     if (arithmeticSign == true){
+                        if (!isDigit(charExpression[i-1])){
+                            clearExpression += charExpression[i];
+                            break;
+                        }
                         if (charExpression[i-1] == '-'){
                             if (i - 2 >= 0) {
                                 if (charExpression[i - 2] == '-') {
@@ -109,6 +119,8 @@ public class CalculatorDebugger {
                             comma = false;
                             break;
                         }
+
+
                         CalculatorError.calculatorError();
                     }
 
@@ -154,6 +166,10 @@ public class CalculatorDebugger {
                         break;
                     }
                     if (charExpression[i] == '(' && isDigit(charExpression[i - 1])) {
+                        clearExpression += charExpression[i];
+                        break;
+                    }
+                    if (charExpression[i] == '(' && charExpression[i +1] == '(') {
                         clearExpression += charExpression[i];
                         break;
                     }
