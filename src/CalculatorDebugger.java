@@ -6,8 +6,63 @@ public class CalculatorDebugger {
         expression = mainDebugger(expression);
         parentheses(expression);
         expression = multiplicationSigns(expression);
+        expression = clearExpressionNull(expression);
+        expression = expressionFinal(expression);
+        expression = expressionZero(expression);
         return expression;
 
+    }
+
+    public static String expressionZero (String expression ){
+        char[] charExpression = expression.toCharArray();
+        expression = "";
+        for (int x = 0; x < charExpression.length; x++){
+            if (charExpression[x] == ' ' && isDigit(charExpression[x-1])){
+                expression += ".0 ";
+            } else {
+                expression += charExpression[x];
+            }
+        }
+
+
+        return expression;
+    }
+
+    public static String expressionFinal (String expression ){
+        char[] charExpression = expression.toCharArray();
+        expression = "";
+        for (int x = 0; x < charExpression.length; x++){
+            if (charExpression[x] == '-' && x == 0 || charExpression[x] == '-' && !isDigit(charExpression[x-1]) && charExpression[x - 1] != ')'
+                    && charExpression[x - 1] != '('){
+                expression += charExpression[x] ;
+            }
+            else
+            if (charExpression[x] == '-' && charExpression[x - 1] == '('){
+                expression += charExpression[x]  + " ";
+            }
+            else
+            if ( charExpression[x]  == '+' || charExpression[x] == '-' || charExpression[x]  == '*' || charExpression[x]  == '/'){
+                expression += " " + charExpression[x]  + " ";
+            }else
+            if ( charExpression[x]  == '('){
+                expression += charExpression[x]  + " ";
+            }else
+            if ( charExpression[x]  == ')'){
+                expression += " " + charExpression[x];
+            } else {
+                expression += charExpression[x] ;
+            }
+
+        }
+        return expression;
+    }
+
+    public static String clearExpressionNull (String expression){
+        expression = expression.replace("--0", "-0");
+        expression = expression.replace("*-0", "*0");
+        expression = expression.replace("/-0", "/0");
+        expression = expression.replace("+-0", "+0");
+        return expression;
     }
 
     public static String clearExpression (String expression){
