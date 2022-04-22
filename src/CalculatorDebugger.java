@@ -9,10 +9,13 @@ public class CalculatorDebugger {
         expression = clearExpressionNull(expression);
         expression = expressionFinal(expression);
         expression = expressionZero(expression);
+        expression = expressionMinus(expression);
         return expression;
 
     }
-
+    public static String expressionMinus (String expression ){
+        return expression.replace("--", "");
+    }
     public static String expressionZero (String expression ){
         char[] charExpression = expression.toCharArray();
         expression = "";
@@ -38,7 +41,7 @@ public class CalculatorDebugger {
             }
             else
             if (charExpression[x] == '-' && charExpression[x - 1] == '('){
-                expression += charExpression[x]  + " ";
+                expression += charExpression[x];
             }
             else
             if ( charExpression[x]  == '+' || charExpression[x] == '-' || charExpression[x]  == '*' || charExpression[x]  == '/'){
