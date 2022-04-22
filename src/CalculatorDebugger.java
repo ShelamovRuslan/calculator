@@ -34,7 +34,12 @@ public class CalculatorDebugger {
                     dot = false;
                 }
             } else {
-                expression += charExpression[x];
+                if (x == charExpression.length - 1 && charExpression[x] != ')'){
+                    expression += charExpression[x];
+                    expression += ".0";
+                }else {
+                    expression += charExpression[x];
+                }
             }
         }
 
