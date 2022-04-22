@@ -19,9 +19,20 @@ public class CalculatorDebugger {
     public static String expressionZero (String expression ){
         char[] charExpression = expression.toCharArray();
         expression = "";
+        boolean dot = false;
         for (int x = 0; x < charExpression.length; x++){
+
+            if (charExpression[x] == '.'){
+                expression += charExpression[x];
+                dot = true;
+            } else
             if (charExpression[x] == ' ' && isDigit(charExpression[x-1])){
-                expression += ".0 ";
+                if (dot == false) {
+                    expression += ".0 ";
+                } else {
+                    expression += " ";
+                    dot = false;
+                }
             } else {
                 expression += charExpression[x];
             }
