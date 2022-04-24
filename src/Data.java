@@ -80,16 +80,14 @@ public class Data {
         RunCalc.runCalc();
     }
     public static void editeData () {
-        report();
         String number = Calculator.console("Введите номер выражение которое желаете изменить.");
         String expression = Calculator.console("Введите арифметичное выражение.");
 
         ArrayList<Data> list = dataList();
         for (Data x: list){
             if (x.number.equals(number)){
-                x.expression = Debugger.core(x.expression);
-                x.result = "" + Calculator.coreEditeExpression(x.expression);
-                x.expression = expression;
+                x.expression = Debugger.core(expression);
+                x.result = "" + Calculator.coreEditeExpression(expression);
                 Data.dataFile(list);
             }
         }

@@ -19,13 +19,14 @@ public class Calculator {
         ArrayList<Data> list = Data.dataList();
         list.add(data);
         Data.dataFile(list);
+        System.out.println(result);
         expression = "";
         result = 0.0;
         RunCalc.runCalc();
     }
 
-    public static double coreEditeExpression(String massage) {
-        expression = Debugger.core(console(massage));
+    public static double coreEditeExpression(String expression) {
+        expression = Debugger.core(expression);
         Calculator calculator = new Calculator(expression);
         result = calculator.calculate();
         return result;
