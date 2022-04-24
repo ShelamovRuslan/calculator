@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,7 +12,7 @@ public class Calculator {
     public static void core(String massage) {
         expression = Debugger.core(console(massage));
         Calculator calculator = new Calculator(expression);
-        result = calculator.calculate();
+        result = calculator.calc();
         Data data = new Data(expression,
                 "" + result);
         ArrayList<Data> list = Data.dataList();
@@ -28,7 +27,7 @@ public class Calculator {
     public static double coreEditeExpression(String expression) {
         expression = Debugger.core(expression);
         Calculator calculator = new Calculator(expression);
-        result = calculator.calculate();
+        result = calculator.calc();
         return result;
     }
 
@@ -44,7 +43,7 @@ public class Calculator {
         this.i = 0;
     }
 
-    public double calculate () {
+    public double calc() {
         double first = multiply ();
 
         while (i < elements.length){
@@ -89,7 +88,7 @@ public class Calculator {
         double result;
         if (next.equals("(")) {
             i++;
-            result = calculate();
+            result = calc();
             String closeBracket = "";
             if (i < elements.length){
                 closeBracket = elements[i];
