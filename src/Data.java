@@ -109,7 +109,7 @@ public class Data {
         RunCalc.runCalc();
     }
     public static void searchGreaterData () {
-        String number = Calculator.console("Введите искомое значение выражения");
+        String number = Calculator.console("Введите число");
         ArrayList<Data> list = dataList();
         double result;
         double digit = Double.parseDouble(number);
@@ -122,7 +122,7 @@ public class Data {
         RunCalc.runCalc();
     }
     public static void searchLowerData () {
-        String number = Calculator.console("Введите искомое значение выражения");
+        String number = Calculator.console("Введите число");
         ArrayList<Data> list = dataList();
         double result;
         double digit = Double.parseDouble(number);
