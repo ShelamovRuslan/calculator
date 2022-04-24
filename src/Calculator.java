@@ -1,29 +1,57 @@
-
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Calculator {
 
-    private String[] tokens;
-    private int pos;
+    private String[] elements;
+    private int i;
+    private static String expression;
+    private static double result;
 
-    public static double calculator(String expr) {
-        Calculator calculator = new Calculator(expr);
-        return calculator.calculate();
+
+    public static void core(String massage) {
+        expression = Debugger.core(console(massage));
+        Calculator calculator = new Calculator(expression);
+        result = calculator.calculate();
+        Data data = new Data(expression,
+                "" + result);
+        ArrayList<Data> list = Data.dataList();
+        list.add(data);
+        Data.dataFile(list);
+        expression = "";
+        result = 0.0;
+        RunCalc.runCalc();
+    }
+
+    public static double coreEditeExpression(String massage) {
+        expression = Debugger.core(console(massage));
+        Calculator calculator = new Calculator(expression);
+        result = calculator.calculate();
+        return result;
+    }
+
+    public static String console (String message){
+        Scanner console = new Scanner(System.in);
+        System.out.println(message);
+        //return JOptionPane.showInputDialog(message);
+        return console.nextLine();
     }
 
     public Calculator(String expr) {
-        this.tokens = expr.split(" ");
-        this.pos = 0;
+        this.elements = expr.split(" ");
+        this.i = 0;
     }
 
     public double calculate () {
         double first = multiply ();
 
-        while (pos < tokens.length){
-            String operator = tokens [pos];
+        while (i < elements.length){
+            String operator = elements[i];
             if (!operator.equals("+") && !operator.equals("-")){
                 break;
             } else {
-                pos ++;
+                i++;
             }
             double second = multiply ();
             if (operator.equals("+")){
@@ -36,16 +64,16 @@ public class Calculator {
     }
 
     public double multiply () {
-        double first = factor ();
+        double first = parentheses ();
 
-        while (pos < tokens.length){
-            String operator = tokens [pos];
+        while (i < elements.length){
+            String operator = elements[i];
             if (!operator.equals("*") && !operator.equals("/")){
                 break;
             } else {
-                pos ++;
+                i++;
             }
-            double second = factor ();
+            double second = parentheses ();
             if (operator.equals("*")){
                 first *= second;
             } else {
@@ -55,22 +83,22 @@ public class Calculator {
         return first;
     }
 
-    public double factor () {
-        String next = tokens[pos];
+    public double parentheses () {
+        String next = elements[i];
         double result;
         if (next.equals("(")) {
-            pos++;
+            i++;
             result = calculate();
             String closeBracket = "";
-            if (pos < tokens.length){
-                closeBracket = tokens[pos];
+            if (i < elements.length){
+                closeBracket = elements[i];
             }
             if (closeBracket.equals(")")){
-                pos++;
+                i++;
                 return result;
             }
         }
-        pos++;
+        i++;
         return Double.parseDouble(next);
     }
 
